@@ -23,7 +23,9 @@ public class RemoveProductControl extends HttpServlet {
         ProductDao dao = new ProductDao();
         Product product = dao.getProduct(productId);
 
-        dao.removeProduct(product);
+        if (product != null) {
+            dao.removeProduct(product);
+        }
 
         response.sendRedirect(request.getContextPath() + "/product-management");
     }

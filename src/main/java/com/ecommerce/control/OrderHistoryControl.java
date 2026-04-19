@@ -27,6 +27,11 @@ public class OrderHistoryControl extends HttpServlet {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
 
+        if (account == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
         List<Order> orderList = orderDao.getOrderHistory(account.getId());
 
         request.setAttribute("order_list", orderList);

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Base64;
 
 import com.ecommerce.database.Database;
@@ -34,12 +35,15 @@ public class AccountDao {
     }
 
     // Method to execute get account query.
-    private Account queryGetAccount(String query) {
+    private Account queryGetAccount(String query, Object... params) {
         Account account = new Account();
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = new Database().getConnection();
             preparedStatement = connection.prepareStatement(query);
+            for (int i = 0; i < params.length; i++) {
+                preparedStatement.setObject(i + 1, params[i]);
+            }
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 account.setId(resultSet.getInt(1));
@@ -70,32 +74,36 @@ public class AccountDao {
 
     // Method to get account by id.
     public Account getAccount(int accountId) {
-        String query = "SELECT * FROM account WHERE account_id = " + accountId;
-        return queryGetAccount(query);
+        String query = "SELECT * FROM account WHERE account_id = ?";
+        return queryGetAccount(query, accountId);
     }
 
     // Method to get login account from database.
     public Account checkLoginAccount(String username, String password) {
-        String query = "SELECT * FROM account WHERE account_name = '" + username + "' AND account_password = '" + password + "'";
-        return queryGetAccount(query);
+        String query = "SELECT * FROM account WHERE account_name = ? AND account_password = ?";
+        return queryGetAccount(query, username, password);
     }
 
     // Method to check is username exist or not.
     public boolean checkUsernameExists(String username) {
-        String query = "SELECT * FROM account WHERE account_name = '" + username + "'";
-        return (queryGetAccount(query) != null);
+        String query = "SELECT * FROM account WHERE account_name = ?";
+        return (queryGetAccount(query, username) != null);
     }
 
     // Method to create an account.
     public void createAccount(String username, String password, InputStream image) {
         String query = "INSERT INTO account (account_name, account_password, account_image, account_is_seller, account_is_admin) VALUES (?, ?, ?, 0, 0)";
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = new Database().getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
-            preparedStatement.setBinaryStream(3, image);
+            if (image == null) {
+                preparedStatement.setNull(3, Types.BLOB);
+            } else {
+                preparedStatement.setBinaryStream(3, image);
+            }
             preparedStatement.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
@@ -110,10 +118,10 @@ public class AccountDao {
                 "account_address = ?, " +
                 "account_email = ?, " +
                 "account_phone = ?, " +
-                "account_image = ?" +
+                "account_image = ? " +
                 "WHERE account_id = ?";
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = new Database().getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, firstName);
@@ -139,7 +147,7 @@ public class AccountDao {
                 "account_phone = ? " +
                 "WHERE account_id = ?";
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = new Database().getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, firstName);

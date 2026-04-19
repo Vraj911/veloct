@@ -38,9 +38,14 @@ public class CheckoutControl extends HttpServlet {
             return;
         }
 
-        double totalPrice = (double) session.getAttribute("total_price");
         Order order = (Order) session.getAttribute("order");
+        Double totalPrice = (Double) session.getAttribute("total_price");
         Account account = (Account) session.getAttribute("account");
+
+        if (order == null || order.getCartProducts() == null || order.getCartProducts().isEmpty() || totalPrice == null) {
+            response.sendRedirect(request.getContextPath() + "/cart.jsp");
+            return;
+        }
 
         accountDao.updateProfileInformation(account.getId(), firstName, lastName, address, email, phone);
         orderDao.createOrder(account.getId(), totalPrice, order.getCartProducts());

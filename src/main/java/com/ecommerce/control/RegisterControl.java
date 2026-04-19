@@ -28,9 +28,12 @@ public class RegisterControl extends HttpServlet {
         String repeatPassword = request.getParameter("repeat-password");
 
         Part part = request.getPart("profile-image");
-        InputStream inputStream = part.getInputStream();
+        InputStream inputStream = part != null && part.getSize() > 0 ? part.getInputStream() : null;
 
-        if (!password.equals(repeatPassword)) {
+        if (username == null || username.trim().isEmpty() || password == null || password.isEmpty()) {
+            request.setAttribute("alert", "Username and password are required!");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+        } else if (!password.equals(repeatPassword)) {
             request.setAttribute("alert", "Incorrect password!");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         } else if (accountDao.checkUsernameExists(username)) {

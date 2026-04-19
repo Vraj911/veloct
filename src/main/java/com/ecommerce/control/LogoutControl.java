@@ -22,10 +22,12 @@ public class LogoutControl extends HttpServlet {
 
         Cookie[] cookies = request.getCookies();
 
-        if (cookies != null) { // 🔴 fix
+        if (cookies != null) {
+            String cookiePath = request.getContextPath().isEmpty() ? "/" : request.getContextPath();
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("username") || cookie.getName().equals("password")) {
                     cookie.setMaxAge(0);
+                    cookie.setPath(cookiePath);
                     response.addCookie(cookie);
                 }
             }

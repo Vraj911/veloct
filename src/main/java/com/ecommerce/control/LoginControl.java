@@ -21,7 +21,7 @@ public class LoginControl extends HttpServlet {
     private Account getAccountCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
 
-        if (cookies == null) return null; // 🔴 important fix
+        if (cookies == null) return null;
 
         String username = "";
         String password = "";
@@ -30,6 +30,8 @@ public class LoginControl extends HttpServlet {
             if (cookie.getName().equals("username")) username = cookie.getValue();
             if (cookie.getName().equals("password")) password = cookie.getValue();
         }
+
+        if (username.isEmpty() || password.isEmpty()) return null;
 
         return accountDao.checkLoginAccount(username, password);
     }
@@ -43,16 +45,19 @@ public class LoginControl extends HttpServlet {
         session.setAttribute("account", account);
 
         if (rememberMe) {
+            String cookiePath = request.getContextPath().isEmpty() ? "/" : request.getContextPath();
+
             Cookie u = new Cookie("username", account.getUsername());
             u.setMaxAge(600);
+            u.setPath(cookiePath);
             response.addCookie(u);
 
             Cookie p = new Cookie("password", account.getPassword());
             p.setMaxAge(600);
+            p.setPath(cookiePath);
             response.addCookie(p);
         }
 
-        // 🔴 FIXED: use context path
         response.sendRedirect(request.getContextPath() + "/");
     }
 

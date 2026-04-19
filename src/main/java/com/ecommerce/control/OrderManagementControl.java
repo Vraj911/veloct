@@ -31,6 +31,11 @@ public class OrderManagementControl extends HttpServlet {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
 
+        if (account == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
         int accountId = account.getId();
 
         List<Product> productList = productDao.getSellerProducts(accountId);

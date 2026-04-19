@@ -33,7 +33,7 @@ public class CartControl extends HttpServlet {
                 it.remove();
             }
         }
-        return totalPrice; // 🔴 FIXED
+        return totalPrice;
     }
 
     @Override
@@ -45,11 +45,16 @@ public class CartControl extends HttpServlet {
         if (request.getParameter("remove-product-id") != null) {
 
             Order order = (Order) session.getAttribute("order");
-            double totalPrice = (double) session.getAttribute("total_price");
+            Double totalPrice = (Double) session.getAttribute("total_price");
+
+            if (order == null || totalPrice == null) {
+                response.sendRedirect(request.getContextPath() + "/cart.jsp");
+                return;
+            }
 
             int productId = Integer.parseInt(request.getParameter("remove-product-id"));
 
-            totalPrice = removeCartProduct(productId, order, totalPrice); // 🔴 FIXED
+            totalPrice = removeCartProduct(productId, order, totalPrice);
 
             session.setAttribute("total_price", totalPrice);
 
@@ -72,7 +77,7 @@ public class CartControl extends HttpServlet {
                 if (request.getParameter("quantity") != null) {
                     quantity = Integer.parseInt(request.getParameter("quantity"));
 
-                    if (product.getAmount() - quantity < 0) {
+                    if (quantity <= 0 || product.getAmount() - quantity < 0) {
                         response.sendRedirect(request.getContextPath()
                                 + "/product-detail?id=" + product.getId() + "&invalid-quantity=1");
                         return;
@@ -105,6 +110,11 @@ public class CartControl extends HttpServlet {
 
                     for (CartProduct cp : list) {
                         if (cp.getProduct().getId() == product.getId()) {
+                            if (cp.getQuantity() + quantity > product.getAmount()) {
+                                response.sendRedirect(request.getContextPath()
+                                        + "/product-detail?id=" + product.getId() + "&invalid-quantity=1");
+                                return;
+                            }
                             cp.setQuantity(cp.getQuantity() + quantity);
                             totalPrice += product.getPrice() * quantity;
                             found = true;

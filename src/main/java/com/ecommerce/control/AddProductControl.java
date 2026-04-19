@@ -35,6 +35,11 @@ public class AddProductControl extends HttpServlet {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
 
+        if (account == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
         int sellerId = account.getId();
 
         ProductDao dao = new ProductDao();

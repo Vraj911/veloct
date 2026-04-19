@@ -7,6 +7,7 @@ public class Database {
     public Connection getConnection() {
         Connection conn;
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/veloct", "root", "root");
             return conn;
         } catch (Exception e) {
