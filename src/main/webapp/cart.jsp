@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <% response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); %>
+<c:set var="usdToInrRate" value="92.82"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,6 +40,8 @@
 
                             <tbody>
                             <c:forEach items="${order.cartProducts}" var="o">
+                                <fmt:formatNumber var="productPriceInr" value="${o.price * usdToInrRate}" minFractionDigits="2" maxFractionDigits="2"/>
+                                <fmt:formatNumber var="productTotalInr" value="${o.price * o.quantity * usdToInrRate}" minFractionDigits="2" maxFractionDigits="2"/>
                                 <tr>
                                     <td class="product-thumbnail">
                                         <img src="data:image/jpg;base64,${o.product.base64Image}" alt="Image"
@@ -51,7 +55,8 @@
 
                                     <td>
                                         <input name="product-price" class="form-control-plaintext h5 text-black"
-                                               value="${o.price}" style="text-align: center" readonly>
+                                               value="&#8377;${productPriceInr}"
+                                               style="text-align: center" readonly>
                                     </td>
 
                                     <td style="min-width: 180px">
@@ -78,7 +83,8 @@
 
                                     <td>
                                         <input name="product-price-total" class="form-control-plaintext h5 text-black"
-                                               value="${o.price * o.quantity}" style="text-align: center" readonly>
+                                               value="&#8377;${productTotalInr}"
+                                               style="text-align: center" readonly>
                                     </td>
 
                                     <td><a href="cart?remove-product-id=${o.product.id}" class="btn btn-primary btn-sm">X</a></td>
@@ -124,8 +130,10 @@
                                 </div>
 
                                 <div class="col-md-6 text-right">
+                                    <fmt:formatNumber var="cartTotalInr" value="${total_price * usdToInrRate}" minFractionDigits="2" maxFractionDigits="2"/>
                                     <input name="order-price-total" class="form-control-plaintext h5 text-black"
-                                           value="${total_price}" style="text-align: center" readonly>
+                                           value="&#8377;${cartTotalInr}"
+                                           style="text-align: center" readonly>
                                 </div>
                             </div>
 

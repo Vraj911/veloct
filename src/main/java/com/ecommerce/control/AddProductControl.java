@@ -19,12 +19,14 @@ import com.ecommerce.entity.Account;
 @MultipartConfig
 public class AddProductControl extends HttpServlet {
 
+    private static final double USD_TO_INR_RATE = 92.82;
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String name = request.getParameter("product-name");
-        double price = Double.parseDouble(request.getParameter("product-price"));
+        double price = Double.parseDouble(request.getParameter("product-price")) / USD_TO_INR_RATE;
         String desc = request.getParameter("product-description");
         int category = Integer.parseInt(request.getParameter("product-category"));
         int amount = Integer.parseInt(request.getParameter("product-amount"));

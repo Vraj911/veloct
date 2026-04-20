@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <% response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); %>
+<c:set var="usdToInrRate" value="92.82"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,9 +49,9 @@
 
                                     <td>${o.quantity}</td>
 
-                                    <td>$${o.price}</td>
+                                    <td>&#8377;<fmt:formatNumber value="${o.price * usdToInrRate}" minFractionDigits="2" maxFractionDigits="2"/></td>
 
-                                    <td>$${o.price * o.quantity}</td>
+                                    <td>&#8377;<fmt:formatNumber value="${o.price * o.quantity * usdToInrRate}" minFractionDigits="2" maxFractionDigits="2"/></td>
                                 </tr>
                             </c:forEach>
                             </tbody>

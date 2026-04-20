@@ -10,15 +10,20 @@
 <div class="site-wrap">
     <jsp:include page="templates/header.jsp"/>
 
-    <div class="site-blocks-cover" style="background-image: url(static/images/hero_1.jpg);" data-aos="fade">
+    <!-- HERO -->
+    <div class="site-blocks-cover"
+         style="background-image: url(${pageContext.request.contextPath}/static/images/hero_1.jpg);"
+         data-aos="fade">
+
         <div class="container">
             <div class="row align-items-start align-items-md-center justify-content-end">
                 <div class="col-md-5 text-center text-md-left pt-5 pt-md-0">
-                    <h1 class="mb-2">Finding Your Perfect Shoes</h1>
+                    <h1 class="mb-2">Find Your Perfect Style</h1>
 
-                    <div class="intro-text text-center text-md-left">
-                        <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis
-                            quam. Integer accumsan tincidunt fringilla.
+                    <div class="intro-text">
+                        <p class="mb-4">
+                            Discover premium quality footwear designed for comfort and style.
+                            From everyday wear to festive collections, upgrade your look effortlessly.
                         </p>
 
                         <p>
@@ -30,70 +35,77 @@
         </div>
     </div>
 
+    <!-- FEATURES -->
     <div class="site-section site-section-sm site-blocks-1">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="">
+
+                <div class="col-md-6 col-lg-4 d-lg-flex mb-4">
                     <div class="icon mr-4 align-self-start">
                         <span class="icon-truck"></span>
                     </div>
-
                     <div class="text">
                         <h2 class="text-uppercase">Free Shipping</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer
-                            accumsan tincidunt fringilla.</p>
+                        <p>Fast and reliable delivery across India with zero shipping charges.</p>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-md-6 col-lg-4 d-lg-flex mb-4">
                     <div class="icon mr-4 align-self-start">
                         <span class="icon-refresh2"></span>
                     </div>
                     <div class="text">
-                        <h2 class="text-uppercase">Free Returns</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer
-                            accumsan tincidunt fringilla.</p>
+                        <h2 class="text-uppercase">Easy Returns</h2>
+                        <p>7-day hassle-free return and exchange policy for complete peace of mind.</p>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="col-md-6 col-lg-4 d-lg-flex mb-4">
                     <div class="icon mr-4 align-self-start">
                         <span class="icon-help"></span>
                     </div>
                     <div class="text">
                         <h2 class="text-uppercase">Customer Support</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at iaculis quam. Integer
-                            accumsan tincidunt fringilla.</p>
+                        <p>We’re here to help you with orders, queries, and product assistance.</p>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 
     <jsp:include page="templates/collections-section.jsp"/>
-
     <jsp:include page="templates/featured-products.jsp"/>
 
+    <!-- SALE SECTION -->
     <div class="site-section block-8">
         <div class="container">
-            <div class="row justify-content-center  mb-5">
-                <div class="col-md-7 site-section-heading text-center pt-4">
+
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-7 text-center">
                     <h2>Big Sale!</h2>
                 </div>
             </div>
+
             <div class="row align-items-center">
+
                 <div class="col-md-12 col-lg-7 mb-5">
-                    <a href="#"><img src="static/images/blog_1.jpg" alt="Image placeholder"
-                                     class="img-fluid rounded"></a>
+                    <img src="${pageContext.request.contextPath}/static/images/blog_1.jpg"
+                         class="img-fluid rounded">
                 </div>
-                <div class="col-md-12 col-lg-5 text-center pl-md-5">
-                    <h2><a href="#">50% less in all items</a></h2>
-                    <p class="post-meta mb-4">By <a href="#">Carl Smith</a> <span class="block-8-sep">&bullet;</span>
-                        September 3, 2018</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam iste dolor accusantium facere
-                        corporis ipsum animi deleniti fugiat. Ex, veniam?</p>
-                    <p><a href="shop" class="btn btn-primary btn-sm">Shop Now</a></p>
+
+                <div class="col-md-12 col-lg-5 text-center">
+                    <h2>Up to 50% OFF</h2>
+
+                    <p class="mb-4">
+                        Grab exciting deals on trending footwear. Limited time offer — don’t miss out.
+                    </p>
+
+                    <p>
+                        <a href="shop" class="btn btn-primary btn-sm">Shop Now</a>
+                    </p>
                 </div>
+
             </div>
         </div>
     </div>

@@ -22,6 +22,8 @@ import com.ecommerce.entity.Product;
 @MultipartConfig
 public class EditProductControl extends HttpServlet {
 
+    private static final double USD_TO_INR_RATE = 92.82;
+
     ProductDao productDao = new ProductDao();
     CategoryDao categoryDao = new CategoryDao();
 
@@ -48,7 +50,7 @@ public class EditProductControl extends HttpServlet {
         int productId = Integer.parseInt(request.getParameter("product-id"));
 
         String name = request.getParameter("product-name");
-        double price = Double.parseDouble(request.getParameter("product-price"));
+        double price = Double.parseDouble(request.getParameter("product-price")) / USD_TO_INR_RATE;
         String desc = request.getParameter("product-description");
         int category = Integer.parseInt(request.getParameter("product-category"));
         int amount = Integer.parseInt(request.getParameter("product-amount"));

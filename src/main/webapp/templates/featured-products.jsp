@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<c:set var="usdToInrRate" value="92.82"/>
 <div class="site-section block-3 site-blocks-2 bg-light">
     <div class="container">
         <div class="row justify-content-center">
@@ -20,7 +22,9 @@
                                 </figure>
                                 <div class="block-4-text p-4">
                                     <h3><a href="product-detail?id=${o.id}">${o.name}</a></h3>
-                                    <p class="mb-0">$${o.price}</p>
+                                    <p class="mb-0">
+                                        &#8377;<fmt:formatNumber value="${o.price * usdToInrRate}" minFractionDigits="2" maxFractionDigits="2"/>
+                                    </p>
                                 </div>
                             </div>
                         </div>

@@ -75,18 +75,18 @@
 
                 <div class="col-md-5 ml-auto">
                     <div class="p-4 border mb-3">
-                        <span class="d-block text-primary h6 text-uppercase">New York</span>
-                        <p class="mb-0">203 Fake St. Mountain View, San Francisco, California, USA</p>
+                        <span class="d-block text-primary h6 text-uppercase">Vadodara</span>
+                        <p class="mb-0">203 Raj complex,Vadodara, Gujrat, India</p>
                     </div>
 
                     <div class="p-4 border mb-3">
-                        <span class="d-block text-primary h6 text-uppercase">London</span>
-                        <p class="mb-0">203 Fake St. Mountain View, San Francisco, California, USA</p>
+                        <span class="d-block text-primary h6 text-uppercase">Ahmedabad</span>
+                        <p class="mb-0">203 RajRatna complex, Ahmedabad, Gujrat, India</p>
                     </div>
 
                     <div class="p-4 border mb-3">
-                        <span class="d-block text-primary h6 text-uppercase">Canada</span>
-                        <p class="mb-0">203 Fake St. Mountain View, San Francisco, California, USA</p>
+                        <span class="d-block text-primary h6 text-uppercase">Surat</span>
+                        <p class="mb-0">203 Rajesh complex, Surat, Gujrat, India</p>
                     </div>
                 </div>
             </div>
